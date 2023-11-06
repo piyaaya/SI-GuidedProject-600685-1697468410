@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitality Prediction</title>
+    <style>
+        body{
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0%;
+        }
+        form {
+            background-color: #444;
+            padding: 50px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        select {
+            background-color: #555;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 5px;
+            padding: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        input[type="number"] {
+            width: 100px ;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 5px;
+            cursor:grab;
+        }
+        
+        input[type="submit"] {
+            background-color: #ff9900;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #ffcc66;
+        }
+        
+        /* Dark mode styles */
+        input[type="text"],
+        input[type="number"],
+        select,
+        label{
+            background-color: #555;
+            color: #fff;
+            padding-left: 2%;
+        }
+        
+        label {
+            color: #50b0ff;
+            display:block;
+            margin-bottom: 2px;
+            padding: 5px;
+            padding-left: 2%;
+            font-weight: bolder;
+            font-size: larger;
+            border-radius: 10px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            border: 1px solid #666;
+        }
+        
+        form {
+            border: 2px solid #666;
+        }
+
+        /* Dark mode styles for submit button */
+        .center-button {
+            text-align: center;
+        }
+        input[type="submit"] {
+            background-color: #ff9900;
+            color: #333;
+            align-self: center;
+            width: 40%;
+            font-size: large;
+            font-weight: bolder;
+        }
+        input[type="submit"]:hover {
+            background-color: #ffcc66;
+            color: #333;
+            width: 40%;
+        }
+        .Heading{
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: #1d1d1d; /* Choose your background color */
+            padding: 10px;
+        }
+        h2 {
+            display: block;
+            text-align: center;
+            color: #ff9900;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #252525;
+            color: #fff;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            border: 1px solid #666; /* Add a border around the footer */
+            border-radius: 5px; /* Add border radius for a rounded look */
+        }           
+
+        footer p {
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #50b0ff;
+        }
+
+footer h5 {
+    font-size: 30px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color:#ffcc66;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding: 2px;
+}
+
+/* Center the footer text */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+        .Result{
+            background-color: #252525;
+            color: #ff9900;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            border: 1px solid #666; /* Add a border around the footer */
+            border-radius: 5px; /* Add border radius for a rounded look */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="Heading">
+    <h2>Hotel Occupancy Prediction</h2>
+    </div>
+    <form action="/login" method="POST">
+        <label for="accommodation">Accommodation Type</label><br>
+        <select name="accommodation" id="accommodation" required>
+            <option value="0">Hotel</option>
+            <option value="1">Resort</option>
+        </select><br><br>
+
+        <label for="arrival_month">Arrival Date Month:</label><br>
+        <select name="arrival_month" id="arrival_month" required>
+            <option value="4">January</option>
+            <option value="3">February</option>
+            <option value="7">March</option>
+            <option value="0">April</option>
+            <option value="8">May</option>
+            <option value="6">June</option>
+            <option value="5">July</option>
+            <option value="1">August</option>
+            <option value="11">September</option>
+            <option value="10">October</option>
+            <option value="9">November</option>
+            <option value="2">December</option>
+        </select><br><br>
+
+        <label for="arrival_year">Arrival Date Year:</label><br>
+        <select name="arrival_year" id="arrival_year" required>
+            <option value="2015">2023</option>
+            <option value="2016">2024</option>
+            <option value="2017">2025</option>
+        </select><br><br>
+
+        <label for="arrival_date">Arrival Date:</label><br>
+        <select name="arrival_date" id="arrival_date" required></select><br><br>
+
+        <label for="meal_option">Meal Option:</label><br>
+        <select name="meal_option" id="meal_option" required>
+            <option value="3">No meal</option>
+            <option value="0">Breakfast</option>
+            <option value="2">Breakfast and Dinner</option>
+            <option value="1">Breakfast, Lunch, and Dinner</option>
+        </select><br><br>
+
+        <label for="deposit_type">Deposit Type:</label><br>
+        <select name="deposit_type" id="deposit_type" required>
+            <option value="0">No Deposit</option>
+            <option value="2">Refundable Deposit</option>
+            <option value="1">Non-Refundable Deposit</option>
+        </select><br><br>
+
+        <label for="booking_type">Booking Type:</label><br>
+        <select name="booking_type" id="booking_type" required>
+            <option value="0">Contract</option>
+            <option value="1">Group</option>
+            <option value="2">Transient</option>
+            <option value="3">Transient Party</option>
+        </select><br><br>
+
+        <label for="week_night_stay">No of Week Night Stay:</label><br>
+        <input type="number" name="week_night_stay" id="week_night_stay" min="0" max="30" required><br><br>
+
+        <label for="weekend_night_stay">No of Weekend Night Stay:</label><br>
+        <input type="number" name="weekend_night_stay" id="weekend_night_stay" min="0" max="20" required><br><br>
+
+        <label for="adults">No of Adults:</label><br>
+        <input type="number" name="adults" id="adults" min="0" max="50" required><br><br>
+
+        <label for="children">No of Children:</label><br>
+        <input type="number" name="children" id="children" min="0" max="50" required><br><br>
+
+        <label for="babies">No of Babies:</label><br>
+        <input type="number" name="babies" id="babies" min="0" max="50" required><br><br>
+
+        <label for="repeated_guest">Is customer a repeated Guest:</label><br>
+        <select name="repeated_guest" id="repeated_guest" required>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select><br><br>
+
+        <label for="parking_spaces">No of Parking Spaces Required:</label><br>
+        <input type="number" name="parking_spaces" id="parking_spaces" min="0" max="10" required><br><br>
+
+        <label for="special_requests">No of Special Requests:</label><br>
+        <input type="number" name="special_requests" id="special_requests" min="0" max="10" required><br><br>
+
+        <div class="center-button">
+            <input type="submit" value="Predict">
+            <div class="Result">
+            <h1><b>{{y}}</b></h1>
+            </div>
+        </div>
+    </form>
+    </div>
+    <footer>
+        <p>Project Team Details:</p>
+        <h5>Team Id: Team-592779</h5>
+        <ul>
+            <li>Team Leader : Ashish Chauhan</li>
+            <li>Team Member : Ishika Lalwani</li>
+            <li>Team Member : Dev Agarwal</li>
+            <li>Team Member : Piya Chhibber</li>
+        </ul>
+    </footer>
+    <script>
+        // Function to populate the "Arrival Date" dropdown based on selected month and year
+        function populateArrivalDate() {
+            var monthSelect = document.getElementById("arrival_month");
+            var yearSelect = document.getElementById("arrival_year");
+            var dateSelect = document.getElementById("arrival_date");
+
+            var selectedMonth = monthSelect.value;
+            var selectedYear = yearSelect.value;
+
+            // Clear the current options in the "Arrival Date" dropdown
+            dateSelect.innerHTML = "";
+
+            // Get the number of days in the selected month and year
+            var daysInMonth = new Date(selectedYear, monthSelect.selectedIndex + 1, 0).getDate();
+
+            // Populate the "Arrival Date" dropdown with date options
+            for (var i = 1; i <= daysInMonth; i++) {
+                var option = document.createElement("option");
+                option.value = i;
+                option.text = i;
+                dateSelect.appendChild(option);
+            }
+        }
+
+        // Add event listeners to "Arrival Month" and "Arrival Year" selects to update date options instantly
+        var monthSelect = document.getElementById("arrival_month");
+        var yearSelect = document.getElementById("arrival_year");
+        monthSelect.addEventListener("change", populateArrivalDate);
+        yearSelect.addEventListener("change", populateArrivalDate);
+
+        // Initialize the "Arrival Date" dropdown
+        populateArrivalDate();
+    </script>
+</body>
+</html>
